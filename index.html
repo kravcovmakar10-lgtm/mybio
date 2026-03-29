@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>BIO rviax</title>
+    <title>Мой Telegram Канал</title>
     <style>
         * {
             margin: 0;
@@ -12,14 +12,13 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             overflow: hidden;
-            color: white;
         }
 
         /* Видеофон */
@@ -41,65 +40,123 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(2px);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px);
             z-index: -1;
         }
 
         /* Контент */
         .content {
             text-align: center;
-            padding: 40px 30px;
-            max-width: 500px;
-            width: 90%;
+            padding: 20px;
+            width: 100%;
             z-index: 1;
         }
 
-        h1 {
-            font-size: 32px;
+        /* ===== ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКОВ ===== */
+        .language-switch {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
             margin-bottom: 40px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: 50px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+        
+        .lang-btn.active {
+            color: white;
+            background: rgba(255, 51, 51, 0.3);
+            border: 1px solid #ff3333;
+        }
+        
+        .lang-btn:hover:not(.active) {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Разделитель между языками */
+        .lang-divider {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            line-height: 28px;
         }
 
-        /* ===== ПРОЗРАЧНАЯ КНОПКА С АНИМИРОВАННОЙ ОБВОДКОЙ ===== */
+        /* ===== КРАСНАЯ КНОПКА ===== */
         .telegram-button {
-            display: inline-block;
-            background: transparent;  /* Прозрачный фон */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: transparent;
             color: white;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 500;
             text-decoration: none;
-            padding: 10px 24px;  /* Компактно по размеру текста */
-            border-radius: 50px;
-            border: 2px solid #ff3333;
+            padding: 12px 28px;
+            border: 1.5px solid #ff3333;
+            border-radius: 40px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            
-            /* Текст в одну строку */
-            white-space: nowrap;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+            margin-top: 20px;
         }
         
-        /* Анимация движущейся красной обводки */
+        /* Красное свечение при наведении */
+        .telegram-button:hover {
+            border-color: #ff6666;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        /* Эффект нажатия */
+        .telegram-button:active {
+            transform: translateY(1px);
+        }
+        
+        /* Анимация пульсации */
+        .telegram-button {
+            animation: redPulse 2s infinite;
+        }
+        
+        @keyframes redPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.4);
+                border-color: #ff3333;
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(255, 51, 51, 0);
+                border-color: #ff6666;
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 51, 51, 0);
+                border-color: #ff3333;
+            }
+        }
+        
+        /* Бегущая белая полоска сверху вниз */
         .telegram-button::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 50px;
-            background: linear-gradient(90deg, #ff0000, #ff6666, #ff0000, #ff6666, #ff0000);
-            background-size: 300% 100%;
-            z-index: -1;
-            animation: borderMove 2s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        /* Белая полоска, бегущая сверху вниз */
-        .telegram-button::after {
             content: '';
             position: absolute;
             top: -100%;
@@ -107,63 +164,115 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(180deg, 
-                rgba(255,255,255,0) 0%, 
-                rgba(255,255,255,0.6) 50%, 
-                rgba(255,255,255,0) 100%);
-            transition: top 0.6s ease;
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            transition: top 0.5s ease;
         }
         
-        /* При наведении включается обводка и бежит полоска */
         .telegram-button:hover::before {
-            opacity: 1;
-        }
-        
-        .telegram-button:hover::after {
             top: 100%;
         }
         
-        /* Постоянная анимация обводки (всегда активна) */
-        .telegram-button {
-            box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
-            animation: glowPulse 1.5s infinite;
+        /* Движущийся красный огонёк по контуру */
+        .telegram-button::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 42px;
+            background: linear-gradient(90deg, 
+                #ff0000, #ff6666, #ff0000, #ff6666, #ff0000);
+            background-size: 300% 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        /* Анимация пульсации свечения */
-        @keyframes glowPulse {
-            0% {
-                box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-                border-color: #ff3333;
-            }
-            50% {
-                box-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
-                border-color: #ff6666;
-            }
-            100% {
-                box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-                border-color: #ff3333;
-            }
+        .telegram-button:hover::after {
+            opacity: 0.5;
+            animation: borderMove 1.5s linear infinite;
         }
         
-        /* Анимация движущейся обводки (бегущий огонёк по контуру) */
         @keyframes borderMove {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 300% 0%;
-            }
+            0% { background-position: 0% 0%; }
+            100% { background-position: 300% 0%; }
         }
         
-        /* Эффект нажатия */
-        .telegram-button:active {
-            transform: scale(0.96);
-        }
-        
-        /* Иконка Telegram рядом с текстом */
+        /* Иконка */
         .telegram-icon {
-            margin-right: 8px;
             font-size: 18px;
-            vertical-align: middle;
+        }
+        
+        /* Профиль */
+        .profile {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff3333, #cc0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .name {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .title {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+        
+        .bio {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            max-width: 280px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        .learn-more {
+            display: inline-block;
+            margin-top: 16px;
+            color: #ff6666;
+            text-decoration: none;
+            font-size: 14px;
+            border-bottom: 1px solid #ff6666;
+            padding-bottom: 2px;
+        }
+        
+        .learn-more:hover {
+            color: #ff9999;
+        }
+        
+        /* Секция "Обо мне" */
+        .about-section {
+            margin-top: 30px;
+        }
+        
+        .about-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -177,12 +286,34 @@
     <div class="overlay"></div>
 
     <div class="content">
-        <h1> bio rviax</h1>
         
-        <!-- Прозрачная кнопка -->
+        <!-- Переключатель языков -->
+        <div class="language-switch">
+            <button class="lang-btn active" data-lang="ru">RU</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" data-lang="jp">JP</button>
+        </div>
+        
+        <!-- Профиль -->
+        <div class="profile">
+            <div class="avatar">N</div>
+            <div class="name" id="name">Nyama</div>
+            <div class="title" id="title">Разработчик и Контент-Предприниматель</div>
+            <div class="bio" id="bio">Начинающий разработчик и контент-предприниматель. Моя биография на этом сайте.</div>
+            <a href="#" class="learn-more" id="learnMore">УЗНАТЬ БОЛЬШЕ</a>
+        </div>
+        
+        <!-- Секция "Обо мне" -->
+        <div class="about-section">
+            <div class="about-title" id="aboutTitle">ОБО МНЕ</div>
+        </div>
+        
+        <!-- Красная кнопка Telegram -->
         <a href="https://t.me/+mOLTH5y6clpkZjZi" target="_blank" class="telegram-button" onclick="tg.sendData('Переход в Telegram канал')">
             <span class="telegram-icon">📢</span>
-            МОЙ TELEGRAM КАНАЛ
+            <span id="buttonText">МОЙ TELEGRAM КАНАЛ</span>
         </a>
     </div>
 
@@ -190,6 +321,65 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+        
+        // Тексты для разных языков
+        const translations = {
+            ru: {
+                name: 'rviax',
+                title: 'Разработчик и Контент-Предприниматель',
+                bio: 'Начинающий разработчик и контент-предприниматель. Моя биография на этом сайте.',
+                learnMore: 'УЗНАТЬ БОЛЬШЕ',
+                aboutTitle: 'ОБО МНЕ',
+                buttonText: 'МОЙ TELEGRAM КАНАЛ'
+            },
+            en: {
+                name: 'rviax',
+                title: 'Developer and Content Entrepreneur',
+                bio: 'A beginner developer and content entrepreneur. My biography is on this website. My biography is on this website.',
+                learnMore: 'LEARN MORE',
+                aboutTitle: 'ABOUT ME',
+                buttonText: 'MY TELEGRAM CHANNEL'
+            },
+            jp: {
+                name: 'rviax',
+                title: '開発者兼コンテンツ起業家',
+                bio: '意欲的な開発者およびコンテンツ起業家。 私の伝記はこのウェブサイトにあります。',
+                learnMore: 'もっと詳しく',
+                aboutTitle: '私について',
+                buttonText: '私のテレグラムチャンネル'
+            }
+        };
+        
+        let currentLang = 'ru';
+        
+        // Функция смены языка
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            
+            document.getElementById('name').textContent = t.name;
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('bio').textContent = t.bio;
+            document.getElementById('learnMore').textContent = t.learnMore;
+            document.getElementById('aboutTitle').textContent = t.aboutTitle;
+            document.getElementById('buttonText').textContent = t.buttonText;
+            
+            // Обновляем активный класс у кнопок
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Добавляем обработчики на кнопки языков
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLanguage(btn.dataset.lang);
+            });
+        });
     </script>
 </body>
 </html>
