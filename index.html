@@ -14,14 +14,10 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* Видеофон — НОВЫЙ ФОН */
+        /* Видеофон */
         .video-background {
             position: fixed;
             top: 0;
@@ -33,7 +29,6 @@
             pointer-events: none;
         }
         
-        /* Затемнение */
         .overlay {
             position: fixed;
             top: 0;
@@ -45,9 +40,19 @@
             z-index: -1;
         }
 
+        /* ===== СТИЛИ ДЛЯ СТРАНИЦ ===== */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
         .content {
             text-align: center;
-            padding: 20px;
             width: 100%;
             z-index: 1;
         }
@@ -247,7 +252,8 @@
         .learn-more:hover {
             color: #ff9999;
         }
-        
+
+        /* ===== СТРЕЛКИ ===== */
         .scroll-down, .scroll-up {
             position: absolute;
             bottom: 30px;
@@ -291,6 +297,7 @@
             }
         }
 
+        /* ===== ВТОРАЯ СТРАНИЦА ===== */
         .second-page {
             min-height: 100vh;
             display: flex;
@@ -373,7 +380,7 @@
     <div id="page2" class="second-page">
         <div class="info-card">
             <div class="info-text" id="infoText">
-                <strong>МНЕ 17 ЛЕТ</strong><br><br>
+                <strong>МНЕ 16 ЛЕТ</strong><br><br>
                 Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.
             </div>
         </div>
@@ -398,7 +405,7 @@
                 learnMore: 'УЗНАТЬ БОЛЬШЕ',
                 aboutTitle: 'ОБО МНЕ',
                 buttonText: 'МОЙ TELEGRAM КАНАЛ',
-                infoText: '<strong>МНЕ 17 ЛЕТ</strong><br><br>Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.'
+                infoText: '<strong>МНЕ 16 ЛЕТ</strong><br><br>Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.'
             },
             en: {
                 name: 'rviax',
@@ -407,7 +414,7 @@
                 learnMore: 'LEARN MORE',
                 aboutTitle: 'ABOUT ME',
                 buttonText: 'MY TELEGRAM CHANNEL',
-                infoText: '<strong>I AM 17 YEARS OLD</strong><br><br>I am a beginner developer, I have a channel where you can earn money online by writing reviews.'
+                infoText: '<strong>I AM 16 YEARS OLD</strong><br><br>I am a beginner developer, I have a channel where you can earn money online by writing reviews.'
             },
             jp: {
                 name: 'rviax',
@@ -416,7 +423,7 @@
                 learnMore: 'もっと詳しく',
                 aboutTitle: '私について',
                 buttonText: '私のテレグラムチャンネル',
-                infoText: '<strong>17歳です</strong><br><br>私は初心者開発者で、レビューを書いてオンラインでお金を稼げるチャンネルを持っています。'
+                infoText: '<strong>16歳です</strong><br><br>私は初心者開発者で、レビューを書いてオンラインでお金を稼げるチャンネルを持っています。'
             }
         };
         
