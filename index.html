@@ -40,7 +40,6 @@
             z-index: -1;
         }
 
-        /* ===== СТИЛИ ДЛЯ СТРАНИЦ ===== */
         .section {
             min-height: 100vh;
             display: flex;
@@ -253,7 +252,6 @@
             color: #ff9999;
         }
 
-        /* ===== СТРЕЛКИ ===== */
         .scroll-down, .scroll-up {
             position: absolute;
             bottom: 30px;
@@ -297,10 +295,10 @@
             }
         }
 
-        /* ===== ВТОРАЯ СТРАНИЦА ===== */
         .second-page {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -315,6 +313,7 @@
             padding: 40px 30px;
             border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
         }
         
         .info-text {
@@ -328,6 +327,16 @@
         .info-text strong {
             color: #ff6666;
             font-weight: 600;
+        }
+        
+        /* Стили для картинки */
+        .info-image {
+            max-width: 280px;
+            width: 100%;
+            border-radius: 16px;
+            margin-top: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
         }
     </style>
 </head>
@@ -383,6 +392,9 @@
                 <strong>МНЕ 16 ЛЕТ</strong><br><br>
                 Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.
             </div>
+            
+            <!-- ДОБАВЛЕННАЯ КАРТИНКА ИЗ PINTEREST -->
+            <img class="info-image" src="https://i.pinimg.com/originals/6f/b7/91/6fb791d40eddb53a58f9cd8dc9aee694.jpg" alt="Картинка канала">
         </div>
         
         <div class="scroll-up" onclick="document.getElementById('page1').scrollIntoView({ behavior: 'smooth', block: 'start' })">
