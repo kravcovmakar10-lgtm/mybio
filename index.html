@@ -15,10 +15,9 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* Видеофон общий для всех секций */
+        /* Видеофон */
         .video-background {
             position: fixed;
             top: 0;
@@ -30,7 +29,6 @@
             pointer-events: none;
         }
         
-        /* Затемнение */
         .overlay {
             position: fixed;
             top: 0;
@@ -42,7 +40,6 @@
             z-index: -1;
         }
 
-        /* Общий контейнер для секций */
         .section {
             min-height: 100vh;
             display: flex;
@@ -53,14 +50,12 @@
             position: relative;
         }
 
-        /* Контент первой страницы */
         .content {
             text-align: center;
             width: 100%;
             z-index: 1;
         }
 
-        /* ===== ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКОВ ===== */
         .language-switch {
             display: flex;
             justify-content: center;
@@ -106,7 +101,6 @@
             line-height: 28px;
         }
 
-        /* ===== КРАСНАЯ КНОПКА TELEGRAM ===== */
         .telegram-button {
             display: inline-flex;
             align-items: center;
@@ -258,8 +252,7 @@
             color: #ff9999;
         }
 
-        /* ===== СТРЕЛКА ВНИЗ ===== */
-        .scroll-down {
+        .scroll-down, .scroll-up {
             position: absolute;
             bottom: 30px;
             left: 50%;
@@ -278,15 +271,19 @@
             transition: all 0.3s ease;
         }
         
-        .scroll-down:hover {
+        .scroll-down:hover, .scroll-up:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateX(-50%) scale(1.1);
         }
         
-        .scroll-down svg {
+        .scroll-down svg, .scroll-up svg {
             width: 24px;
             height: 24px;
             fill: white;
+        }
+        
+        .scroll-up svg {
+            transform: rotate(180deg);
         }
         
         @keyframes bounce {
@@ -298,7 +295,6 @@
             }
         }
 
-        /* ===== ВТОРАЯ СТРАНИЦА ===== */
         .second-page {
             min-height: 100vh;
             display: flex;
@@ -306,6 +302,7 @@
             align-items: center;
             text-align: center;
             padding: 40px 20px;
+            position: relative;
         }
         
         .info-card {
@@ -329,43 +326,10 @@
             color: #ff6666;
             font-weight: 600;
         }
-        
-        /* Стрелка вверх */
-        .scroll-up {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-            animation: bounce 2s infinite;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(4px);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .scroll-up:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateX(-50%) scale(1.1);
-        }
-        
-        .scroll-up svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-            transform: rotate(180deg);
-        }
     </style>
 </head>
 <body>
 
-    <!-- Видеофон -->
     <video class="video-background" autoplay muted loop playsinline>
         <source src="https://v1.pinimg.com/videos/iht/hls/06/5c/45/065c451bcdd034db58e488faffdd6a6a.m3u8" type="application/x-mpegURL">
     </video>
@@ -373,10 +337,9 @@
     <div class="overlay"></div>
 
     <!-- ПЕРВАЯ СТРАНИЦА -->
-    <section id="page1" class="section">
+    <div id="page1" class="section">
         <div class="content">
             
-            <!-- Переключатель языков -->
             <div class="language-switch">
                 <button class="lang-btn active" data-lang="ru">RU</button>
                 <span class="lang-divider">|</span>
@@ -385,18 +348,15 @@
                 <button class="lang-btn" data-lang="jp">JP</button>
             </div>
             
-            <!-- Кнопка Telegram -->
-            <a href="https://t.me/+mOLTH5y6clpkZjZi" target="_blank" class="telegram-button" onclick="tg.sendData('Переход в Telegram канал')">
+            <a href="https://t.me/+mOLTH5y6clpkZjZi" target="_blank" class="telegram-button">
                 <span class="telegram-icon">📢</span>
                 <span id="buttonText">МОЙ TELEGRAM КАНАЛ</span>
             </a>
             
-            <!-- Секция "Обо мне" -->
             <div class="about-section">
                 <div class="about-title" id="aboutTitle">ОБО МНЕ</div>
             </div>
             
-            <!-- Профиль -->
             <div class="profile">
                 <div class="name" id="name">rviax</div>
                 <div class="title" id="title">Разработчик и Контент-Предприниматель</div>
@@ -405,37 +365,34 @@
             </div>
         </div>
         
-        <!-- Стрелка вниз -->
-        <div class="scroll-down" onclick="document.getElementById('page2').scrollIntoView({ behavior: 'smooth' })">
+        <div class="scroll-down" onclick="document.getElementById('page2').scrollIntoView({ behavior: 'smooth', block: 'start' })">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 16L6 10L7.4 8.6L12 13.2L16.6 8.6L18 10L12 16Z"/>
             </svg>
         </div>
-    </section>
+    </div>
 
     <!-- ВТОРАЯ СТРАНИЦА -->
-    <section id="page2" class="second-page">
+    <div id="page2" class="second-page">
         <div class="info-card">
             <div class="info-text" id="infoText">
-                <strong>МНЕ 17 ЛЕТ</strong><br><br>
+                <strong>МНЕ 16 ЛЕТ</strong><br><br>
                 Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.
             </div>
         </div>
         
-        <!-- Стрелка вверх (возврат на первую страницу) -->
-        <div class="scroll-up" onclick="document.getElementById('page1').scrollIntoView({ behavior: 'smooth' })">
+        <div class="scroll-up" onclick="document.getElementById('page1').scrollIntoView({ behavior: 'smooth', block: 'start' })">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 16L6 10L7.4 8.6L12 13.2L16.6 8.6L18 10L12 16Z"/>
             </svg>
         </div>
-    </section>
+    </div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
         
-        // Тексты для разных языков
         const translations = {
             ru: {
                 name: 'rviax',
@@ -444,7 +401,7 @@
                 learnMore: 'УЗНАТЬ БОЛЬШЕ',
                 aboutTitle: 'ОБО МНЕ',
                 buttonText: 'МОЙ TELEGRAM КАНАЛ',
-                infoText: '<strong>МНЕ 17 ЛЕТ</strong><br><br>Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.'
+                infoText: '<strong>МНЕ 16 ЛЕТ</strong><br><br>Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.'
             },
             en: {
                 name: 'rviax',
@@ -453,7 +410,7 @@
                 learnMore: 'LEARN MORE',
                 aboutTitle: 'ABOUT ME',
                 buttonText: 'MY TELEGRAM CHANNEL',
-                infoText: '<strong>I AM 17 YEARS OLD</strong><br><br>I am a beginner developer, I have a channel where you can earn money online by writing reviews.'
+                infoText: '<strong>I AM 16 YEARS OLD</strong><br><br>I am a beginner developer, I have a channel where you can earn money online by writing reviews.'
             },
             jp: {
                 name: 'rviax',
