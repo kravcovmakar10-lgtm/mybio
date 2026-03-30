@@ -14,14 +14,11 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Видеофон */
+        /* Видеофон общий для всех секций */
         .video-background {
             position: fixed;
             top: 0;
@@ -45,10 +42,20 @@
             z-index: -1;
         }
 
-        /* Контент */
+        /* Общий контейнер для секций */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Контент первой страницы */
         .content {
             text-align: center;
-            padding: 20px;
             width: 100%;
             z-index: 1;
         }
@@ -93,7 +100,6 @@
             background: rgba(255, 255, 255, 0.1);
         }
         
-        /* Разделитель между языками */
         .lang-divider {
             color: rgba(255, 255, 255, 0.3);
             font-size: 14px;
@@ -123,19 +129,16 @@
             margin-bottom: 40px;
         }
         
-        /* Красное свечение при наведении */
         .telegram-button:hover {
             border-color: #ff6666;
             box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
             transform: translateY(-1px);
         }
         
-        /* Эффект нажатия */
         .telegram-button:active {
             transform: translateY(1px);
         }
         
-        /* Анимация пульсации */
         .telegram-button {
             animation: redPulse 2s infinite;
         }
@@ -155,7 +158,6 @@
             }
         }
         
-        /* Бегущая белая полоска сверху вниз */
         .telegram-button::before {
             content: '';
             position: absolute;
@@ -174,7 +176,6 @@
             top: 100%;
         }
         
-        /* Движущийся красный огонёк по контуру */
         .telegram-button::after {
             content: '';
             position: absolute;
@@ -201,12 +202,10 @@
             100% { background-position: 300% 0%; }
         }
         
-        /* Иконка */
         .telegram-icon {
             font-size: 18px;
         }
         
-        /* Секция "Обо мне" */
         .about-section {
             margin-bottom: 30px;
         }
@@ -219,7 +218,6 @@
             letter-spacing: 2px;
         }
         
-        /* Профиль — имя и должность */
         .profile {
             text-align: center;
             margin-bottom: 30px;
@@ -259,47 +257,178 @@
         .learn-more:hover {
             color: #ff9999;
         }
+
+        /* ===== СТРЕЛКА ВНИЗ ===== */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-down:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-50%) scale(1.1);
+        }
+        
+        .scroll-down svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        /* ===== ВТОРАЯ СТРАНИЦА ===== */
+        .second-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .info-card {
+            max-width: 320px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .info-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            font-weight: 400;
+        }
+        
+        .info-text strong {
+            color: #ff6666;
+            font-weight: 600;
+        }
+        
+        /* Стрелка вверх */
+        .scroll-up {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-up:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-50%) scale(1.1);
+        }
+        
+        .scroll-up svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Видеофон из Pinterest -->
+    <!-- Видеофон -->
     <video class="video-background" autoplay muted loop playsinline>
         <source src="https://v1.pinimg.com/videos/iht/hls/06/5c/45/065c451bcdd034db58e488faffdd6a6a.m3u8" type="application/x-mpegURL">
     </video>
     
     <div class="overlay"></div>
 
-    <div class="content">
-        
-        <!-- Переключатель языков -->
-        <div class="language-switch">
-            <button class="lang-btn active" data-lang="ru">RU</button>
-            <span class="lang-divider">|</span>
-            <button class="lang-btn" data-lang="en">EN</button>
-            <span class="lang-divider">|</span>
-            <button class="lang-btn" data-lang="jp">JP</button>
+    <!-- ПЕРВАЯ СТРАНИЦА -->
+    <section id="page1" class="section">
+        <div class="content">
+            
+            <!-- Переключатель языков -->
+            <div class="language-switch">
+                <button class="lang-btn active" data-lang="ru">RU</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="jp">JP</button>
+            </div>
+            
+            <!-- Кнопка Telegram -->
+            <a href="https://t.me/+mOLTH5y6clpkZjZi" target="_blank" class="telegram-button" onclick="tg.sendData('Переход в Telegram канал')">
+                <span class="telegram-icon">📢</span>
+                <span id="buttonText">МОЙ TELEGRAM КАНАЛ</span>
+            </a>
+            
+            <!-- Секция "Обо мне" -->
+            <div class="about-section">
+                <div class="about-title" id="aboutTitle">ОБО МНЕ</div>
+            </div>
+            
+            <!-- Профиль -->
+            <div class="profile">
+                <div class="name" id="name">rviax</div>
+                <div class="title" id="title">Разработчик и Контент-Предприниматель</div>
+                <div class="bio" id="bio">Начинающий разработчик и контент-предприниматель. Моя биография на этом сайте.</div>
+                <a href="#" class="learn-more" id="learnMore">УЗНАТЬ БОЛЬШЕ</a>
+            </div>
         </div>
         
-        <!-- Кнопка Telegram -->
-        <a href="https://t.me/+mOLTH5y6clpkZjZi" target="_blank" class="telegram-button" onclick="tg.sendData('Переход в Telegram канал')">
-            <span class="telegram-icon">📢</span>
-            <span id="buttonText">МОЙ TELEGRAM КАНАЛ</span>
-        </a>
-        
-        <!-- Секция "Обо мне" -->
-        <div class="about-section">
-            <div class="about-title" id="aboutTitle">ОБО МНЕ</div>
+        <!-- Стрелка вниз -->
+        <div class="scroll-down" onclick="document.getElementById('page2').scrollIntoView({ behavior: 'smooth' })">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 16L6 10L7.4 8.6L12 13.2L16.6 8.6L18 10L12 16Z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ВТОРАЯ СТРАНИЦА -->
+    <section id="page2" class="second-page">
+        <div class="info-card">
+            <div class="info-text" id="infoText">
+                <strong>МНЕ 17 ЛЕТ</strong><br><br>
+                Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.
+            </div>
         </div>
         
-        <!-- Профиль -->
-        <div class="profile">
-            <div class="name" id="name">rviax</div>
-            <div class="title" id="title">Разработчик и Контент-Предприниматель</div>
-            <div class="bio" id="bio">Начинающий разработчик и контент-предприниматель. Моя биография на этом сайте.</div>
-            <a href="#" class="learn-more" id="learnMore">УЗНАТЬ БОЛЬШЕ</a>
+        <!-- Стрелка вверх (возврат на первую страницу) -->
+        <div class="scroll-up" onclick="document.getElementById('page1').scrollIntoView({ behavior: 'smooth' })">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 16L6 10L7.4 8.6L12 13.2L16.6 8.6L18 10L12 16Z"/>
+            </svg>
         </div>
-    </div>
+    </section>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
@@ -314,7 +443,8 @@
                 bio: 'Начинающий разработчик и контент-предприниматель. Моя биография на этом сайте.',
                 learnMore: 'УЗНАТЬ БОЛЬШЕ',
                 aboutTitle: 'ОБО МНЕ',
-                buttonText: 'МОЙ TELEGRAM КАНАЛ'
+                buttonText: 'МОЙ TELEGRAM КАНАЛ',
+                infoText: '<strong>МНЕ 17 ЛЕТ</strong><br><br>Я являюсь начинающим разработчиком, имею канал в котором можно зарабатывать онлайн на написание отзывов.'
             },
             en: {
                 name: 'rviax',
@@ -322,7 +452,8 @@
                 bio: 'A beginner developer and content entrepreneur. My biography is on this website.',
                 learnMore: 'LEARN MORE',
                 aboutTitle: 'ABOUT ME',
-                buttonText: 'MY TELEGRAM CHANNEL'
+                buttonText: 'MY TELEGRAM CHANNEL',
+                infoText: '<strong>I AM 17 YEARS OLD</strong><br><br>I am a beginner developer, I have a channel where you can earn money online by writing reviews.'
             },
             jp: {
                 name: 'rviax',
@@ -330,13 +461,13 @@
                 bio: '初心者の開発者兼コンテンツ起業家。私の経歴はこのウェブサイトにあります。',
                 learnMore: 'もっと詳しく',
                 aboutTitle: '私について',
-                buttonText: '私のテレグラムチャンネル'
+                buttonText: '私のテレグラムチャンネル',
+                infoText: '<strong>17歳です</strong><br><br>私は初心者開発者で、レビューを書いてオンラインでお金を稼げるチャンネルを持っています。'
             }
         };
         
         let currentLang = 'ru';
         
-        // Функция смены языка
         function setLanguage(lang) {
             currentLang = lang;
             const t = translations[lang];
@@ -347,8 +478,8 @@
             document.getElementById('learnMore').textContent = t.learnMore;
             document.getElementById('aboutTitle').textContent = t.aboutTitle;
             document.getElementById('buttonText').textContent = t.buttonText;
+            document.getElementById('infoText').innerHTML = t.infoText;
             
-            // Обновляем активный класс у кнопок
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 if (btn.dataset.lang === lang) {
                     btn.classList.add('active');
@@ -358,7 +489,6 @@
             });
         }
         
-        // Добавляем обработчики на кнопки языков
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 setLanguage(btn.dataset.lang);
